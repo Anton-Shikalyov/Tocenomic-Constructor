@@ -1,0 +1,315 @@
+<div *ngIf="dataWindow == 'staking'">
+    <div class="modal-content" *ngFor="let item of stakingArr; let i = index">
+        <div class="modal-block">
+            <div class="modal-paragraph">
+                <label style="margin: 0;">Select resource which needs to be used for staking reward calculation</label>
+                <select class="inp-select select_plus"[(ngModel)]="selectSource"> 
+                    <option value=1 selected>The number of tokens in the Staking pool</option>
+                    <option value=2>Number of staked agent tokens</option>
+                    <option value=3>Number of tokens purchased for staking service</option>
+                    <option value=4>Number of tokens purchased for all platform services</option>
+                    <option value=5>Selected pool for reward distribution</option>
+                </select>
+            </div>
+            <p class="p-title">Select the precondition for rewards distribution</p>
+            <div class="modal-paragraph">
+                <button class="v-btn" (click)="switchEqual()"><mat-icon [class.active]="activeEqualBtn">check</mat-icon></button>
+                <label>Equal to Current Staking Share</label>
+            </div> 
+    
+            <div class="modal-paragraph">
+                <div class="radio-field">
+                    <button class="v-btn" (click)="switchStable()"><mat-icon [class.active]="activeStableBtn">check</mat-icon></button>
+                    <label>Stable %</label>
+                </div>
+                <div class="inp-field">
+                    <label class="small-label">Value</label> 
+                    <input class="inp-decart" type="number" placeholder="X" min="0" [(ngModel)]="stable" [disabled]="selectStable">
+                </div>
+            </div> 
+    
+            <div class="modal-paragraph">
+                <button class="v-btn" (click)="switchPreconditions()"><mat-icon [class.active]="activePreconditionsBtn">check</mat-icon></button>
+                <label>Preconditions:</label>
+                <button class="inp-btn" (click)="addPrecondition()" [disabled]="selecPreconditions">Add precondition</button>
+            </div>
+            <div>    
+
+                
+                <div *ngFor="let element of precondsArr; let k = index" class="modal-lastParagraph">
+                    <div style="display: flex;">
+                        <div style="display: flex; align-items: center; flex-direction: column;">
+                            <p style="margin: 1.3em 0 0.3em;">{{element.precondName}}: </p>
+                            <button class="inp-btn" *ngIf="precondsArr.length > 1" (click)="deletePrecondition(k)" [disabled]="selecPreconditions">Delete precondition</button>
+                        </div>
+                    </div>    
+                    <div style="display: flex;">
+                        <p style="margin: 1.3em 0;">For Reward % is equal</p>
+                        <div class="inp-field">
+                            <label class="small-label">Value</label>
+                            <input class="inp-decart" type="number" placeholder="X" min="0" [(ngModel)]="element.precondValue" [disabled]="selecPreconditions">
+                        </div>
+                        <div style="display: flex; justify-content: center; flex-direction: column;">
+                            <div *ngFor="let item of element.precondition; let j = index">
+                                <div *ngIf="j > 0" style="display: flex; justify-content: center;">
+                                    <select class="inp-select" [(ngModel)]="item.betweenPreCondition" [disabled]="selecPreconditions">
+                                        <option selected value="And">And</option>
+                                        <option value="Or">Or</option>
+                                    </select>
+                                </div>
+                                <div style="display: flex;">
+                                    <div class="inp-field">
+                                        <label class="small-label">Choose preCondition</label>
+                                        <select class="inp-select select_large"  [(ngModel)]="item.choosenPreCondition" [disabled]="selecPreconditions">
+                                            <option value=1>Agent Staking Share &#60;</option>
+                                            <option value=2>Tokens Number in the Pool &#60;</option>
+                                            <option value=3>Project Duration Month &#60;</option>
+                                            <option value=4>Months in Staking &#60;</option>
+                                            <option value=5>Token Price &#60;</option>
+                                            <option value=6>Agent Staking Share ></option>
+                                            <option value=7>Tokens Number in the Pool ></option>
+                                            <option value=8>Project Duration Month ></option>
+                                            <option value=9>Months in Staking ></option>
+                                            <option value=10>Token Price ></option>
+                                        </select>
+                                    </div>
+                                    <div class="inp-field">
+                                        <label class="small-label">Value</label>
+                                        <input class="inp-decart" type="number" placeholder="X" min="0"  [(ngModel)]="item.preConditionValue" [disabled]="selecPreconditions">
+                                    </div>
+                                    <div>
+                                        <button class="plus-minus-btn" [disabled]="selecPreconditions" (click)="deletePreconditions(k,j)">-</button>
+                                        <button class="plus-minus-btn" [disabled]="selecPreconditions" (click)="addPreconditions(k)">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="build-sc-btn" (click)="modalCl()">Submit</button>
+    </div>
+</div>
+
+<div *ngIf="dataWindow == 'farming'">
+    <div class="modal-content" *ngFor="let item of farmingArr; let i = index">
+        <div class="modal-block">
+            <div class="modal-paragraph">
+                <label style="margin: 0;">Select resource which needs to be used for farming reward calculation</label>
+                <select class="inp-select select_plus" [(ngModel)]="selectSource"> 
+                    <option value=1 selected>Number of agent tokens at the Farming  pool</option>
+                    <option value=2>Number of tokens purchased for Farming service</option>
+                    <option value=3>Number of tokens purchased for all platform services</option>
+                    <option value=4>Selected pool for reward distribution</option>
+                </select>
+            </div>
+            <div class="modal-paragraph">
+                <button class="v-btn" (click)="switchEqual()"><mat-icon [class.active]="activeEqualBtn">check</mat-icon></button>
+                <label>Equal to Current Farming Share</label>
+            </div> 
+    
+            <div class="modal-paragraph">
+                <div class="radio-field">
+                    <button class="v-btn" (click)="switchStable()"><mat-icon [class.active]="activeStableBtn">check</mat-icon></button>
+                    <label>Stable %</label>
+                </div>
+                <div class="inp-field">
+                    <label class="small-label">Value</label> 
+                    <input class="inp-decart" type="number" placeholder="X" min="0" [(ngModel)]="stable" [disabled]="selectStable">
+                </div>
+            </div> 
+    
+            <div class="modal-paragraph">
+                <button class="v-btn" (click)="switchPreconditions()"><mat-icon [class.active]="activePreconditionsBtn">check</mat-icon></button>
+                <label>Preconditions:</label>
+                <button class="inp-btn" (click)="addPrecondition()" [disabled]="selecPreconditions">Add precondition</button>
+            </div>
+            <div class="height-overflow">    
+                <div *ngFor="let element of precondsArr; let k = index" class="modal-lastParagraph">
+                    <div style="display: flex;">
+                        <div style="display: flex; align-items: center; flex-direction: column;">
+                            <p style="margin: 1.3em 0 0.3em;">{{element.precondName}}: </p>
+                            <button class="inp-btn" *ngIf="precondsArr.length > 1" (click)="deletePrecondition(k)" [disabled]="selecPreconditions">Delete precondition</button>
+                        </div>
+                    </div>
+                    <div style="display: flex;">
+                        <p style="margin: 1.3em 0;">For Reward % is equal</p>
+                        <div class="inp-field">
+                            <label class="small-label">Value</label>
+                            <input class="inp-decart" type="number" placeholder="X" min="0" [(ngModel)]="element.precondValue" [disabled]="selecPreconditions">
+                        </div>  
+                        <div style="display: flex; justify-content: center; flex-direction: column;">
+                            <div *ngFor="let item of element.precondition; let j = index">
+                                <div *ngIf="j > 0" style="display: flex; justify-content: center;">
+                                    <select class="inp-select" [(ngModel)]="item.betweenPreCondition" [disabled]="selecPreconditions">
+                                        <option selected value="And">And</option>
+                                        <option value="Or">Or</option>
+                                    </select>
+                                </div>
+                                <div style="display: flex;">
+                                    <div class="inp-field">
+                                        <label class="small-label">Choose preCondition</label>
+                                        <select class="inp-select select_large"  [(ngModel)]="item.choosenPreCondition" [disabled]="selecPreconditions">
+                                            <option value=1>Agent Farming Share &#60;</option>
+                                            <option value=2>Tokens Number in the Pool &#60;</option>
+                                            <option value=3>Project Duration Month &#60;</option>
+                                            <option value=4>Months in Farming &#60;</option>
+                                            <option value=5>Token Price &#60;</option>
+                                            <option value=6>Agent Farming Share ></option>
+                                            <option value=7>Tokens Number in the Pool ></option>
+                                            <option value=8>Project Duration Month ></option>
+                                            <option value=9>Months in Farming ></option>
+                                            <option value=10>Token Price ></option>
+                                        </select>
+                                    </div>
+                                    <div class="inp-field">
+                                        <label class="small-label">Value</label>
+                                        <input class="inp-decart" type="number" placeholder="X" min="0"  [(ngModel)]="item.preConditionValue" [disabled]="selecPreconditions">
+                                    </div>
+                                    <div>
+                                        <button class="plus-minus-btn" [disabled]="selecPreconditions" (click)="deletePreconditions(k,j)">-</button>
+                                        <button class="plus-minus-btn" [disabled]="selecPreconditions" (click)="addPreconditions(k)">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="build-sc-btn" (click)="modalCl()">Submit</button>
+    </div>
+</div>
+
+<div *ngIf="(dataWindow == 'unstaking') || (dataWindow == 'unfarming')">
+    <div class="modal-content"  style="pointer-events: bounding-box;">
+        <div class="modal-block">
+            <p class="p-title">Please select and fill in if applicable:</p>
+            <div class="modal-paragraph">
+                <div class="radio-field">
+                    <button class="v-btn" (click)="switchMonth()"><mat-icon [class.active]="activeMonthBtn">check</mat-icon></button>
+                    <label *ngIf="dataWindow == 'unstaking'">Start Staking Month</label>
+                    <label *ngIf="dataWindow == 'unfarming'">Start Farming Month</label>
+                </div>
+                <div class="inp-field">
+                    <label class="small-label">Value</label> 
+                    <input class="inp-decart" type="number" placeholder="X" min="0" [(ngModel)]="month" [disabled]="selectMonth">
+                </div>
+            </div> 
+
+            <div class="modal-paragraph">
+                <div class="radio-field">
+                    <button class="v-btn" (click)="switchDuration()"><mat-icon [class.active]="activeDurationBtn">check</mat-icon></button>
+                    <label *ngIf="dataWindow == 'unstaking'">Staking Duration Limit</label>
+                    <label *ngIf="dataWindow == 'unfarming'">Farming Duration Limit</label>
+                </div>
+                <div class="inp-field">
+                    <label class="small-label">Value</label> 
+                    <input class="inp-decart" type="number" placeholder="X" min="0" [(ngModel)]="duration" [disabled]="selectDuration">
+                </div>
+            </div> 
+
+            <div class="modal-paragraph">
+                <div class="radio-field">
+                    <button class="v-btn" (click)="switchStartStake()"><mat-icon [class.active]="activeStartStake">check</mat-icon></button>
+                    <label *ngIf="dataWindow == 'unstaking'">Start Stake Change</label>
+                    <label *ngIf="dataWindow == 'unfarming'">Start Farm Change</label>
+                </div>
+                <div class="inp-field">
+                    <label class="small-label">Value</label> 
+                    <input class="inp-decart" type="number" placeholder="X" min="0" [(ngModel)]="startStake" [disabled]="selectStartStake">
+                </div>
+            </div> 
+
+            <div class="modal-paragraph">
+                <div class="radio-field">
+                    <button class="v-btn" (click)="switchEndStake()"><mat-icon [class.active]="activeEndStake">check</mat-icon></button>
+                    <label *ngIf="dataWindow == 'unstaking'">End Stake Change</label>
+                    <label *ngIf="dataWindow == 'unfarming'">End Farm Change</label>
+                </div>
+                <div class="inp-field">
+                    <label class="small-label">Value</label> 
+                    <input class="inp-decart" type="number" placeholder="X" min="0" [(ngModel)]="endStake" [disabled]="selectEndStake">
+                </div>
+            </div> 
+
+            <p class="p-title" *ngIf="dataWindow == 'unstaking'">When can users start wing tokens from staking, and what percentage?</p>
+            <p class="p-title" *ngIf="dataWindow == 'unfarming'">When can users start wing tokens from farming, and what percentage?</p>
+
+            <div class="modal-paragraph">
+                <div class="radio-field">
+                    <button class="v-btn" (click)="switchMaximum()"><mat-icon [class.active]="activeMaximumBtn">check</mat-icon></button>
+                    <label>Maximum % monthly</label>
+                </div>
+                <div class="inp-field">
+                    <label class="small-label">Value</label> 
+                    <input class="inp-decart" type="number" placeholder="X" min="0" [(ngModel)]="maximum" [disabled]="selectMaximum">
+                </div>
+            </div> 
+            <div class="modal-paragraph">
+                <button class="v-btn" (click)="switchPreconditions()"><mat-icon [class.active]="activePreconditionsBtn">check</mat-icon></button>
+                <label>Preconditions:</label>
+                <button class="inp-btn" (click)="addPrecondition()" [disabled]="selecPreconditions">Add precondition</button>
+            </div>
+            <div>    
+                <div *ngFor="let element of precondsArr; let k = index" class="modal-lastParagraph">
+                    <div style="display: flex;">
+                        <div style="display: flex; align-items: center; flex-direction: column;">
+                            <p style="margin: 1.3em 0 0.3em;">{{element.precondName}}: </p>
+                            <button class="inp-btn" *ngIf="precondsArr.length > 1" (click)="deletePrecondition(k)" [disabled]="selecPreconditions">Delete precondition</button>
+                        </div>
+                    </div>
+        
+                    <div style="display: flex;">
+                        <p style="margin: 1.3em 0;" *ngIf="dataWindow == 'unstaking'">Maximum unstaking % is equal</p>
+                        <p style="margin: 1.3em 0;" *ngIf="dataWindow == 'unfarming'">Maximum unfarming % is equal</p>
+                        <div class="inp-field">
+                            <label class="small-label">Value</label>
+                            <input class="inp-decart" type="number" placeholder="X" min="0" [(ngModel)]="element.precondValue" [disabled]="selecPreconditions">
+                        </div>
+                        <p style="margin: 1.3em 0;">when</p>
+                        <div style="display: flex; justify-content: center; flex-direction: column;">
+                            <div *ngFor="let item of element.precondition; let j = index">
+                                <div *ngIf="j > 0">
+                                    <select class="inp-select" [(ngModel)]="item.betweenPreCondition" [disabled]="selecPreconditions">
+                                        <option selected value="And">And</option>
+                                        <option value="Or">Or</option>
+                                    </select>
+                                </div>
+                                <div style="display: flex;">
+                                    <div *ngIf="dataWindow == 'unstaking'" class="inp-field">
+                                        <label class="small-label">Choose condition</label>
+                                        <select class="inp-select select_large"  [(ngModel)]="item.choosenPreCondition" [disabled]="selecPreconditions">
+                                            <option value=1>Staking Service Dura    tion Month &#60;</option>
+                                            <option value=2>Months in Staking &#60;</option>
+                                            <option value=3>Staking Service Duration Month ></option>
+                                            <option value=4>Months in Staking ></option>
+                                        </select>
+                                    </div>
+                                    <div *ngIf="dataWindow == 'unfarming'" class="inp-field">
+                                        <label class="small-label">Choose condition</label>
+                                        <select class="inp-select select_large"  [(ngModel)]="item.choosenPreCondition" [disabled]="selecPreconditions">
+                                            <option value=1>Farming Service Duration Month &#60;</option>
+                                            <option value=2>Months in Farming &#60;</option>
+                                            <option value=3>Farming Service Duration Month ></option>
+                                            <option value=4>Months in Farming ></option>
+                                        </select>
+                                    </div>
+                                    <div class="inp-field">
+                                        <label class="small-label">Value</label>
+                                        <input class="inp-decart" type="number" placeholder="X" min="0"  [(ngModel)]="item.preConditionValue" [disabled]="selecPreconditions">
+                                    </div>
+                                    <div style="margin: 0.3em 0;">
+                                        <button class="plus-minus-btn" [disabled]="selecPreconditions" (click)="deletePreconditions(k,j)">-</button>
+                                        <button class="plus-minus-btn" [disabled]="selecPreconditions" (click)="addPreconditions(k)">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="build-sc-btn" (click)="modalCl()">Submit</button>
+    </div>
+</div>

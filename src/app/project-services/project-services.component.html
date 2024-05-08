@@ -1,0 +1,298 @@
+<app-block-template>
+    <div id="header">
+        <div class="header-left">
+            <h2>PROJECT SERVICES</h2>
+        </div>
+        <div class="header-right"></div>
+    </div>
+    <div id="blackBlock">
+        <div class="black inp-block-position">
+            <div class="inp-block">
+                <div class="p-block">
+                    <label>STAKING</label>
+                    <button (click)="switchStaking()" class="inp inp-for-black">{{ stakingSign }}</button>
+                </div>
+                <div class="p-block">
+                    <label for="rounds-number">FARMING</label>
+                    <button (click)="switchFarming()" class="inp inp-for-black">{{ farmingSign }}</button>
+                </div>
+                <div class="p-block">
+                    <label for="total-tokens-amount">CHOOSE / ADD NEW SERVICE </label>
+                    <div style="display: flex;">   
+                        <ng-container>
+                            <select *ngIf="myMap.size > 0" 
+                                    [(ngModel)]="select" 
+                                    (click)="onSelectChange()" class="inp-service inp-for-black" style="background-color: #262627; padding: 0 1em;">
+                                <option *ngFor="let item of myMap | keyvalue" [value]="item.key">{{ item.key }}</option>
+                            </select> 
+                        </ng-container> 
+                        <ng-container *ngIf="myMap.size == 0" >
+                           <mat-icon style="font-size: 3em;">keyboard_arrow_down</mat-icon>
+                        </ng-container> 
+                            <div>
+                                <input class="inp inp-padding inp-for-black" [(ngModel)]="value" type="search" placeholder="Service name" min="0">
+                                <button (click)="addServiceList()" class="inside-btn">+</button>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="body">
+ 
+        <ng-container>
+            <div *ngIf="showStaking">
+                    <div>
+                    <h2>STAKING</h2>
+                    <div id="overflow">
+                        <div *ngFor="let item of stakingArr; let i = index">
+                            <div id="body" class="wrap-inp-block ">
+                                <div class="p-block">
+                                    <label for="total-tokens-amount">Action №</label>
+                                    <input class="inp inp-for-grey" type="number" [(ngModel)]="item.num" (input)="eventStaking(i)" placeholder="0" min="0" readonly>
+                                </div>
+                                <div class="p-block">
+                                    <label for="total-tokens-amount">Agent Name</label>
+                                    <select class="inp inp-for-grey" [(ngModel)]="item.source" (click)="eventStakingAgent(i, item.source)">
+                                            <option [value]="k" *ngFor="let item of sourceArr; let k = index;">{{ item.name }}</option>
+                                    </select> 
+                                </div>
+                                <div class="p-block">
+                                    <label for="total-tokens-amount">Agent Share</label>
+                                    <input class="inp inp-for-grey" type="number" [(ngModel)]="item.agentShare" (input)="eventStaking(i)" placeholder="0" min="0">
+                                </div>
+                                <div class="p-block">
+                                    <label for="total-tokens-amount">Unstaking Factor</label>
+                                    <button class="inp inp-for-grey" (click)="openModal(i, 'unstaking'); eventStaking(i)">{{item.unFactorCondition}}</button>
+                                </div> 
+                                <div class="p-block">
+                                    <label for="total-tokens-amount">Reward	</label>
+                                    <button class="inp inp-for-grey" (click)="openModal(i, 'staking'); eventStaking(i)">{{item.rewardCondition}}</button>
+                                </div>
+                                <div class="p-block">
+                                    <label for="total-tokens-amount">Pool (For Rewards)</label>
+                                    <select class="inp inp-for-grey" [(ngModel)]="item.poolTitle_optionId" (change)="eventStakingPool(i, item.poolTitle_optionId); eventStaking(i)">
+
+                                        <ng-container *ngFor="let poolArrItem of poolArr; let j = index;">
+                                            <option [value]="j" *ngIf="item.poolTitle_optionId == j" selected>{{ poolArrItem.poolTitle }}</option>
+                                            <option [value]="j" *ngIf="item.poolTitle_optionId != j">{{ poolArrItem.poolTitle }}</option>
+                                        </ng-container>
+                                    </select> 
+                                </div>
+                                <div>
+                                    <button (click)="decreaseStaking(i)" class="plus-minus-btn">-</button>
+                                    <button (click)="increaseStaking()" class="plus-minus-btn">+</button> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button (click)="showCurvesForStaking()" class="build-sc-btn">Add Curves</button>
+                </div>
+            </div>
+
+            <div *ngIf="showFarming">
+                <div>
+                <h2>FARMING</h2>
+                    <div id="overflow">
+                        <div *ngFor="let item of farmingArr; let i = index">
+                            <div id="body" class="wrap-inp-block ">
+                                <div class="p-block">
+                                    <label for="total-tokens-amount">Action №</label>
+                                    <input class="inp inp-for-grey" type="number" [(ngModel)]="item.num" (input)="eventFarming(i)" placeholder="0" min="0" readonly>
+                                </div>
+                                <div class="p-block">
+                                    <label for="total-tokens-amount">Agent Name</label>
+                                    <select class="inp inp-for-grey" [(ngModel)]="item.source" (click)="eventFarmingAgent(i, item.source); eventFarming(i)">
+                                            <option [value]="k" *ngFor="let item of sourceArr; let k = index;">{{ item.name }}</option>
+                                    </select> 
+                                </div>
+                                <div class="p-block">
+                                    <label for="total-tokens-amount">Agent Share</label>
+                                    <input class="inp inp-for-grey" (input)="eventFarming(i)" [(ngModel)]="item.agentShare"  type="number" placeholder="0" min="0">
+                                </div>
+                                <div class="p-block">
+                                    <label for="total-tokens-amount">Unfarming Factor</label>
+                                    <button class="inp inp-for-grey" (click)="openModal(i, 'unfarming'); eventFarming(i)">{{item.unFactorCondition}}</button>
+                                </div> 
+                                <div class="p-block">
+                                    <label for="total-tokens-amount">Reward	</label>
+                                    <button class="inp inp-for-grey" (click)="openModal(i, 'farming'); eventFarming(i)">{{item.rewardCondition}}</button>
+                                </div>
+                                <div class="p-block">
+                                    <label for="total-tokens-amount">Pool (For Rewards)</label>
+                                    <select class="inp inp-for-grey" [(ngModel)]="item.poolTitle_optionId" (click)="eventFarmingPool(i, item.poolTitle_optionId); eventFarming(i)">
+                                        <ng-container *ngFor="let poolArrItem of poolArr; let j = index;">
+                                            <option [value]="j" *ngIf="item.poolTitle_optionId == j" selected>{{ poolArrItem.poolTitle }}</option>
+                                            <option [value]="j" *ngIf="item.poolTitle_optionId != j">{{ poolArrItem.poolTitle }}</option>
+                                        </ng-container>
+                                    </select> 
+                                </div>
+                                <div>
+                                    <button (click)="decreaseFarming(i)" class="plus-minus-btn">-</button>
+                                    <button (click)="increaseFarming()" class="plus-minus-btn">+</button> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button (click)="showCurvesForFarming()" class="build-sc-btn">Add Curves</button>
+                </div>
+            </div>
+
+            <div *ngIf="showStakingService">
+                    <h2>Staking service</h2>
+                    <div id="overflow">
+                    <div *ngFor="let value of stakingService; let i = index">
+                        <div id="body" class="wrap-inp-block">
+                                <div class="p-block">
+                                    <label for="total-tokens-amount">Curve №</label>
+                                    <input class="inp inp1 inp-for-grey" type="number" [(ngModel)]="value.curve" placeholder="0" min="0" readonly>
+                                </div>
+                                <div class="p-block">
+                                    <label for="total-tokens-amount">Sales Start</label>
+                                    <input class="inp inp1 inp-for-grey" type="number" [(ngModel)]="value.salesStart" placeholder="0" min="0">
+                                </div>
+                                <div class="p-block">
+                                    <label for="total-tokens-amount">Sales End</label>
+                                    <input class="inp inp1 inp-for-grey" type="number" [(ngModel)]="value.salesEnd" placeholder="%" min="0">
+                                </div> 
+                                <div class="p-block">
+                                    <label for="total-tokens-amount">Sales Min (USD)</label>
+                                    <input class="inp inp1 inp-for-grey" type="number" [(ngModel)]="value.salesMin" placeholder="%" min="0">
+                                </div>
+                                <div class="p-block">
+                                    <label for="total-tokens-amount">Sales Max (USD)</label>
+                                    <input class="inp inp1 inp-for-grey" type="number" [(ngModel)]="value.salesMax"  placeholder="%" min="0">
+                                </div>
+                                <div class="p-block">
+                                    <label for="total-tokens-amount">Choose Algorithm</label>
+                                    <select class="inp inp1 inp-for-grey" [value]="value.algorithm" (change)="switchAlgorithmStaking(i, value.algorithm)">
+                                        <option value="Exponential" selected>Exponential</option>
+                                        <option value="Linear">Linear</option>
+                                    </select> 
+                                </div>
+                                <div class="p-block">
+                                    <label for="total-tokens-amount">Angular Coefficient</label>
+                                    <input class="inp inp1 inp-for-grey" type="number" [(ngModel)]="value.angularCoefficient" placeholder="%" min="0" [disabled]="value.algorithm === 'Linear'">
+                                </div>
+                                <div class="p-block">
+                                    <label for="total-tokens-amount">Rising's Coefficient</label>
+                                    <input class="inp inp1 inp-for-grey" type="number" [(ngModel)]="value.risingCoefficient" placeholder="%" min="0" [disabled]="(value.algorithm === 'Linear')">
+                                </div>
+                                <div>
+                                    <button class="plus-minus-btn" (click)="decreaseStakingService(i)">-</button>
+                                    <button class="plus-minus-btn" (click)="increaseStakingService()">+</button> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+
+            <div *ngIf="showFarmingService">
+                <h2>Farming service</h2>
+                <div id="overflow">
+                <div *ngFor="let value of farmingService; let i = index">
+                        <div id="body" class="wrap-inp-block">
+                            <div class="p-block">
+                                <label for="total-tokens-amount">Curve №</label>
+                                <input class="inp inp1 inp-for-grey" type="number" [(ngModel)]="value.curve" placeholder="0" min="0" readonly>
+                            </div>
+                            <div class="p-block">
+                                <label for="total-tokens-amount">Sales Start</label>
+                                <input class="inp inp1 inp-for-grey" type="number" [(ngModel)]="value.salesStart" placeholder="0" min="0">
+                            </div>
+                            <div class="p-block">
+                                <label for="total-tokens-amount">Sales End</label>
+                                <input class="inp inp1 inp-for-grey" type="number" [(ngModel)]="value.salesEnd" placeholder="%" min="0">
+                            </div> 
+                            <div class="p-block">
+                                <label for="total-tokens-amount">Sales Min (USD)</label>
+                                <input class="inp inp1 inp-for-grey" type="number" [(ngModel)]="value.salesMin" placeholder="%" min="0">
+                            </div>
+                            <div class="p-block">
+                                <label for="total-tokens-amount">Sales Max (USD)</label>
+                                <input class="inp inp1 inp-for-grey" type="number" [(ngModel)]="value.salesMax" placeholder="%" min="0">
+                            </div>
+                            <div class="p-block">
+                                <label for="total-tokens-amount">Choose Algorithm</label>
+                                <select class="inp inp1 inp-for-grey" [value]="value.algorithm" (change)="switchAlgorithmFarming(i, value.algorithm)">
+                                    <option value="Exponential" selected>Exponential</option>
+                                    <option value="Linear">Linear</option>
+                                </select> 
+                            </div>
+                            <div class="p-block">
+                                <label for="total-tokens-amount">Angular Coefficient</label>
+                                <input class="inp inp1 inp-for-grey" type="number" [(ngModel)]="value.angularCoefficient" placeholder="%" min="0" [disabled]="value.algorithm === 'Linear'">
+                            </div>
+                            <div class="p-block">
+                                <label for="total-tokens-amount">Rising's Coefficient</label>
+                                <input class="inp inp1 inp-for-grey" type="number" [(ngModel)]="value.risingCoefficient" placeholder="%" min="0" [disabled]="(value.algorithm === 'Linear')">
+                            </div>
+                            <div>
+                                <button class="plus-minus-btn" (click)="decreaseFarmingService(i)">-</button>
+                                <button class="plus-minus-btn" (click)="increaseFarmingService()">+</button> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             </div>
+
+            <div *ngIf="showService">
+                <div *ngFor="let item of myMap | keyvalue">
+                    <div *ngIf="item.key === select">
+                    <h2>{{ '"' + item.key + '"' }} INCOME</h2>
+                    <div id="overflow">
+                        <div *ngFor="let array of item.value; let i = index">
+                            <div *ngFor="let value of array; let j = index">
+                            <div id="body" class="wrap-inp-block">
+                                    <div class="p-block">
+                                        <label for="total-tokens-amount">Curve №</label>
+                                        <input class="inp inp1 inp-for-grey" type="number" [(ngModel)]="value.curve" (input)="eventServise($event)" placeholder="0" min="0" readonly>
+                                    </div>
+                                    <div class="p-block">
+                                        <label for="total-tokens-amount">Sales Start</label>
+                                        <input class="inp inp1 inp-for-grey" type="number" [(ngModel)]="value.salesStart" (input)="eventServise($event)" placeholder="0" min="0">
+                                    </div>
+                                    <div class="p-block">
+                                        <label for="total-tokens-amount">Sales End</label>
+                                        <input class="inp inp1 inp-for-grey" type="number" [(ngModel)]="value.salesEnd" (input)="eventServise($event)" placeholder="%" min="0">
+                                    </div> 
+                                    <div class="p-block">
+                                        <label for="total-tokens-amount">Sales Min (USD)</label>
+                                        <input class="inp inp1 inp-for-grey" type="number" [(ngModel)]="value.salesMin" (input)="eventServise($event)" placeholder="%" min="0">
+                                    </div>
+                                    <div class="p-block">
+                                        <label for="total-tokens-amount">Sales Max (USD)</label>
+                                        <input class="inp inp1 inp-for-grey" type="number" [(ngModel)]="value.salesMax" (input)="eventServise($event)" placeholder="%" min="0">
+                                    </div>
+                                    <div class="p-block">
+                                        <label for="total-tokens-amount">Choose Algorithm</label>
+                                        <select class="inp inp1 inp-for-grey" [value]="value.algorithm" (change)="switchAlgorithm(i, j, value.algorithm); eventServise($event)" ngDefaultControl>
+                                            <option value="Exponential" selected>Exponential</option>
+                                            <option value="Linear">Linear</option>
+                                        </select> 
+                                    </div>
+                                    <div class="p-block">
+                                        <label for="total-tokens-amount">Angular Coefficient</label>
+                                        <input class="inp inp1 inp-for-grey" type="number" [(ngModel)]="value.angularCoefficient" (input)="eventServise($event)" placeholder="%" min="0" [disabled]="value.algorithm === 'Linear'">
+                                    </div>
+                                    <div class="p-block">
+                                        <label for="total-tokens-amount">Rising's Coefficient</label>
+                                        <input class="inp inp1 inp-for-grey" type="number" [(ngModel)]="value.risingCoefficient" (input)="eventServise($event)" placeholder="%" min="0" [disabled]="(value.algorithm === 'Linear')">
+                                    </div>
+                                    <div>
+                                        <button (click)="decreaseServiceList(item.value, i)" class="plus-minus-btn">-</button>
+                                        <button (click)="increaseServiceList()" class="plus-minus-btn">+</button> 
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+        </ng-container>
+        <!-- <button (click)="switchBtnScheme()" *ngIf="service" class="build-sc-btn">Build scheme</button>
+        <button (click)="switchBtnScheme()" *ngIf="!service" class="build-sc-btn">Add Curves</button> -->
+    </div>
+</app-block-template>

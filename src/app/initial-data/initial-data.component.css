@@ -1,0 +1,49 @@
+.inp {
+    width: 13em;
+    height: 35px;
+    border: none;
+    border-radius: 9px;
+    text-align: center;
+    margin: 0.7em;
+}
+
+.summary_submit_button {
+    padding: 1rem 4rem;
+    margin: auto;
+    display: block;
+    border: 0;
+    border-radius: 5px;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: black;
+    color: white;
+    font-size: 1rem;
+    border-width: 1px;
+    border-style: solid;
+    border-color: white;
+}
+
+@media (max-width: 1366px) {
+  .inp {
+    width: 10.5em;
+    height: 35px;
+}
+  .summary_submit_button {
+    position: relative;
+    bottom: 0.8em;
+  }
+}
+
+@media (min-width: 2560px) and (max-width: 2560px) {
+  .inp {
+    width: 11em;
+    height: 2.5em;
+    border-radius: 11px;
+  }
+  .wrap-inp-block {
+    width: 94%;
+  }
+  .summary_submit_button {
+    font-size: 1em;
+  }
+}

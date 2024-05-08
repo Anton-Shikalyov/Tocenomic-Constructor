@@ -1,0 +1,167 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+.blur-background {
+    background: linear-gradient(to bottom, #333333, #555555);
+    background-size: cover;
+    /* Розтягнути фон на весь контейнер */
+    background-attachment: fixed;
+    /* Фіксований фон */
+    backdrop-filter: blur(5px);
+    position: relative;
+    width: 100%;
+}
+
+.content_block {
+    position: relative;
+    padding: 20px;
+    text-align: center;
+    opacity: 1;
+}
+
+.content_block_head {
+    color: black;
+    margin: 10px;
+    padding: 20px;
+    background: linear-gradient(to bottom, #ffffff, #dddddd);
+    border: 1px solid #999;
+    border-radius: 5px;
+}
+
+.block {
+    color: black;
+    margin: 10px;
+    padding: 20px;
+    background: linear-gradient(to bottom, #ffffff, #dddddd);
+    border: 1px solid #999;
+    border-radius: 5px;
+}
+
+.head {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.spaceBetween {
+    justify-content: space-between;
+}
+
+.flexStart {
+    justify-content: flex-start;
+}
+
+.head-block {
+    width: 100%;
+}
+
+.block_head_email {
+    color: blue;
+}
+
+.right {
+    display: flex;
+    flex-direction: column-reverse;
+    margin-left: 1em;
+    align-items: flex-start;
+    font-size: 1.3rem;
+    font-weight: bold;
+
+}
+
+.img_at {
+    background-image: url("../../img/at_logo.png");
+    background-size: cover;
+    /* Змінює розмір фонового зображення */
+    width: 5.5rem;
+    height: 6rem;
+}
+
+.rep_title {
+    font-size: 1.8em;
+    font-weight: bold;
+}
+
+table {
+    width: 100%;
+}
+
+.t {
+    height: 100%;
+}
+
+.curveTables {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.table_title {
+    margin-top: 1em;
+    background-color: #2E002E;
+    color: white;
+    font-size: 1.2em;
+    font-weight: bold;
+    width: 100%;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+}
+
+.canv {
+    background-color: white;
+    border-radius: 10px;
+}
+
+.chart-container {
+    margin-top: 1em;
+    height: 30em;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.chart-container-lineral {
+    margin-top: 1em;
+    width: 60%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.distribution {
+    display: flex;
+    align-content: flex-start;
+    flex-wrap: wrap;
+    margin-bottom: 3em;
+    gap: 2em;
+    justify-content: space-around;
+}
+
+.unlVest,
+.projectServices {
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+    align-items: flex-start;
+}
+
+.modelingRes {
+    display: flex;
+    flex-direction: column;
+}
+
+.table_title_litle {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-top: 1em;
+}
+
+.lineChartBlock {
+    display: flex;
+    width: 100%;
+    /* height: 22em; */
+    justify-content: center;
+}
+

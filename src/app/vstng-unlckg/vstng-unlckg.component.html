@@ -1,0 +1,118 @@
+<app-block-template>
+    <div id="header">
+        <div class="header-left">
+            <h2>VESTING & UNLOCKING</h2>
+        </div>
+        <div class="header-right"></div>
+    </div>
+    <div id="blackBlock">
+        <div class="black inp-block-position">
+            <div class="inp-block">
+                <div class="p-block">
+                    <label>VESTING</label>
+                    <button (click)="switchVesting()" class="inp inp1 inp-for-black">{{ vestingSign }}</button>
+                </div>
+                <div class="p-block">
+                    <label for="rounds-number">UNLOCKING</label>
+                    <button (click)="switchUnlocking()" class="inp inp1 inp-for-black">{{ unlockingSign }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="body">
+        <div id="overflow">
+            <ng-container>
+                <div *ngIf="showVesting">
+                    <div>
+                    <h2>Vesting</h2>
+                        <div *ngFor="let item of vestingArr; let i = index">
+                            <div id="body" class="wrap-inp-block ">
+                                <div class="p-block">
+                                    <label>Agent Name </label>
+                                    <select class="inp inp-for-grey" [(ngModel)]="item.source" (click)="eventVestingAgent(i, item.source)">
+                                        <ng-container *ngFor="let item of sourceArr; let i = index;">
+                                            <option [value]="i">{{ item.name }}</option>
+                                        </ng-container>
+                                    </select> 
+                                </div>
+                                <div class="p-block">
+                                    <label for="total-tokens-amount">Pool</label>
+                                    <select class="inp  inp-for-grey"  [(ngModel)]="item.poolTitle_optionId" (click)="eventVestingPool(i, item.poolTitle_optionId)">
+                                        <ng-container *ngFor="let item of poolArr; let i = index;">
+                                            <option [value]="i">{{ item.poolTitle }}</option>
+                                        </ng-container>
+                                    </select> 
+                                </div>
+                                <div class="p-block">
+                                    <label>Start Vesting</label>
+                                    <input class="inp inp-for-grey" type="number" [(ngModel)]="item.startVesting" (input)="eventServiseVesting($event)" placeholder="0" min="0">
+                                </div>
+                                <div class="p-block">
+                                    <label>End Vesting</label>
+                                    <input class="inp inp-for-grey" type="number" [(ngModel)]="item.endVesting" (input)="eventServiseVesting($event)" placeholder="0" min="0">
+                                </div>
+                                <div class="p-block">
+                                    <label>Vesting Coefficient</label>
+                                    <input class="inp inp-for-grey" type="number" [(ngModel)]="item.vestingCoeff" (input)="eventServiseVesting($event)" placeholder="%" min="0">
+                                </div> 
+                                <div class="p-block">
+                                    <label>Reward Source</label>
+                                    <select class="inp inp-for-grey" value="StakedTokens" [(ngModel)]="item.rewardSource" (input)="eventServiseVesting($event)">
+                                      <option selected value="StakedTokens">StakedTokens</option>
+                                      <option value="LockedTokens">LockedTokens</option>
+                                    </select> 
+                                </div> 
+                                <div>
+                                    <button (click)="decreaseVesting(i)" class="plus-minus-btn">-</button>
+                                    <button (click)="increaseVesting()" class="plus-minus-btn">+</button> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <div *ngIf="showUnlocking">
+                    <div>
+                        <h2>Unlocking Schedule</h2>
+                        <div *ngFor="let item of unlockingArr; let i = index">
+                            <div id="body" class="wrap-inp-block ">
+                                <div class="p-block">
+                                    <label>Agent Name </label>
+                                    <select class="inp inp-for-grey" [(ngModel)]="item.agent_source" (click)="eventUnlockingAgent(i, item.agent_source)">
+                                        <ng-container *ngFor="let item of sourceArrUnfarming; let k = index;">
+                                            <option [value]="k">{{ item.name }}</option>
+                                        </ng-container>
+                                    </select> 
+                                </div>
+                                <div class="p-block">
+                                    <label>Start Unlocking</label>
+                                    <input class="inp inp-for-grey" type="number" [(ngModel)]="item.startUnlocking" (input)="eventServiseUnlocking($event)" placeholder="0" min="0">
+                                </div>
+                                <div class="p-block">
+                                    <label>End Unlocking</label>
+                                    <input class="inp inp-for-grey" type="number" [(ngModel)]="item.endUnlocking" (input)="eventServiseUnlocking($event)" placeholder="0" min="0">
+                                </div>
+                                <div class="p-block">
+                                    <label>Initial Unlocking</label>
+                                    <input class="inp inp-for-grey" type="number" [(ngModel)]="item.initialUnlocking" (input)="eventServiseUnlocking($event)" placeholder="0" min="0">
+                                </div>
+                                <div class="p-block">
+                                    <label>Destination</label>
+                                    <select class="inp inp-for-grey" value="StakedTokens" [(ngModel)]="item.destination" (input)="eventServiseUnlocking($event)" (click)="stakingPoolEvent(item.destination)">
+                                      <option selected value="StakedTokens">StakedTokens</option>
+                                      <option value="AgentTokens">AgentTokens</option>
+                                    </select> 
+                                </div> 
+                                <div>
+                                    <button (click)="decreasePoolUnlocking(i)" class="plus-minus-btn">-</button>
+                                    <button (click)="increasePoolUnlocking()" class="plus-minus-btn">+</button> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+   
+</app-block-template>

@@ -1,0 +1,78 @@
+p {
+    margin: 0;
+}
+
+.p-1em {
+    position: relative;
+    bottom: 1em;
+}
+
+.plus-minus-btn-block {
+    border: 0;
+    border-radius: 5px;
+    appearance: none;
+    background-color: transparent;
+    color: black;
+    font-size: 2rem;
+    padding-top: 0.94em;
+}
+
+::-webkit-scrollbar {
+    background-color: #26262700;
+    border-radius: 1em;
+}
+
+#overflow::-webkit-scrollbar-thumb {
+    background-color: #bac0c5;
+    border-radius: 1em;
+}
+
+.modal-dialog {
+    display: block;
+    position: relative;
+    width: 70%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .modal-open {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    backdrop-filter: blur(4px); /* Добавьте размытие фона */
+  }
+
+  .modal-content {
+    box-shadow: inset 0px 0px 10px 0px rgb(0 0 0 / 35%);
+    border-radius: 32px;
+    color: black;
+    padding: 3em 1em 2em 5em;
+  }
+
+.modal-paragraph {
+  zoom: 1.5;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+}
+
+@media (max-width: 1366px){
+  .inp {
+      width: 14.5em;
+      height: 35px;
+  }
+  .plus-minus-btn {
+    font-size: 3rem;
+  }
+}
+
+@media (min-width: 2500px) and (max-width: 2860px) {
+  .plus-minus-btn-block {
+    font-size: 3rem;
+  }
+}
+  

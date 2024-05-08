@@ -1,0 +1,59 @@
+<app-block-template>
+    <div id="header">
+        <div class="header-left">
+            <h2>AGENTS</h2>
+        </div>
+        <div class="header-right">
+            <div >
+                <p class="p-1em">Agents are participants in the tokenomic (an individual or a group of individuals, a company or a group of 
+                    companies (and any entity of individuals or companies), etc.).
+                </p>
+                <p class="p-1em">Add the Agents that you have in project. If they are included in the Initial tokens distribution, fill in one of
+                    the fields - "Agent Share" or "Tokens Amount".
+                </p>
+                <p class="p-1em">
+                    Note! Investors will be added to the model automatically (based on the Investment Rounds table)
+                </p>
+            </div>
+        </div>
+    </div>
+    <div id="blackBlock">
+        <div class="black inp-block-position">
+            <div class="black-batton">
+                <div class="inp-block">
+                    <div class="p-block">
+                        <label for="rounds-number">Agents Number</label>
+                        <input class="inp inp-for-black" type="number" (input)="pushFunc($event)" [(ngModel)]="roundsNumberValue" data-id="rounds-number" placeholder="x" min="0">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="body">
+        <div id="overflow">
+            <ng-container *ngFor="let item of arr; let i = index">
+                <div id="body" class="wrap-inp-block">
+                    <div class="p-block">
+                        <label for="total-tokens-amount">Agent Name</label>
+                        <input class="inp inp-for-grey" type="text" [(ngModel)]="item.agentName" (input)="updateAgent($event, i)"  min="0">
+                    </div>
+                    <div class="p-block">
+                        <label for="total-tokens-amount">Agent Share</label>
+                        <input class="inp inp-for-grey" type="number"  [(ngModel)]="item.agentShare" (input)="onInputAgentShare($event, i)" placeholder="%" min="0">
+                    </div>
+                    <div class="p-block">
+                        <label for="total-tokens-amount">Tokens Amount</label>
+                        <input class="inp inp-for-grey" type="number"  [(ngModel)]="item.tokensAmount" (input)="onInputTokenAmount($event, i)" placeholder="10000"  min="0">
+                    </div>
+                    <div>                       
+                        <button (click)="decreaseAgents(i)" class="plus-minus-btn-block">-</button>
+                        <button (click)="increaseAgents()" class="plus-minus-btn-block">+</button>
+                    </div>
+                </div>
+        </ng-container>
+        </div>
+        <div class="container">
+            <button  class="build-sc-btn" (click)="openModal()">Build scheme</button>
+        </div>
+    </div>
+</app-block-template>

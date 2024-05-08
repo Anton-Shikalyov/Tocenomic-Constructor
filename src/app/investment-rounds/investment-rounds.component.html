@@ -1,0 +1,54 @@
+<app-block-template id="secondBlock">
+    <div id="header">
+        <div class="header-left">
+            <h2>INVESTMENT ROUNDS</h2>
+        </div>
+        <div class="header-right">
+            <p>You can fill in only two columns (“Token Price” (if it will change) and any of the other columns</p>
+            <p class="p-1em">or “Fiat” and “Tokens Amount”) - the rest will be calculated automatically.</p>
+        </div>
+    </div>
+    <div id="blackBlock">
+        <div class="black inp-block-position">
+            <div class="inp-block">
+                <div class="p-block">
+                    <label for="rounds-number">Rounds Number</label>
+                    <input class="inp inp1 inp-for-black" type="number" (input)="pushFunc($event)" [(ngModel)]="roundsNumberValue" placeholder="x" min="0">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="body">
+        <div id="overflow">
+            <ng-container *ngFor="let item of arr; let i = index">
+                    <div id="body" class="wrap-inp-block ">
+                        <div class="p-block">
+                            <label for="total-tokens-amount">Round Title</label>
+                            <input class="inp inp-for-grey" [(ngModel)]="item.roundTitle" (input)="updateAgent($event, i)" min="0">
+                        </div>
+                        <div class="p-block">
+                            <label for="total-tokens-amount">Fiat</label>
+                            <input class="inp inp-for-grey" [(ngModel)]="item.fiat" (input)="onInputFiat(i)" type="number" placeholder="1000" min="0">
+                        </div>
+                        <div class="p-block">
+                            <label for="total-tokens-amount">Token Price</label>
+                            <input class="inp inp-for-grey" [(ngModel)]="item.tokenPrice" (input)="onInputTokenPrice(i)" type="number" placeholder="10000" min="0">
+                        </div>
+                        <div class="p-block">
+                            <label for="total-tokens-amount">Tokens amount</label>
+                            <input class="inp inp-for-grey" [(ngModel)]="item.tokensAmount" (input)="onInputTokenAmount(i)" type="number" placeholder="10000" min="0">
+                        </div>
+                        <div class="p-block">
+                            <label for="total-tokens-amount">Investor share</label>
+                            <input class="inp inp-for-grey" [(ngModel)]="item.investorShare" (input)="onInputInvestorShare(i)" type="number" placeholder="%" min="0">
+                        </div>
+                        <div>                       
+                            <button (click)="decreaseRound(i)" class="plus-minus-btn-block">-</button>
+                            <button (click)="increaseRound()" class="plus-minus-btn-block">+</button>
+                        </div>
+                    </div>
+            </ng-container>
+        </div>
+        <button class="build-sc-btn" (click)="openModal()">Build scheme</button>
+    </div>
+</app-block-template>

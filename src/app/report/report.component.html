@@ -1,0 +1,260 @@
+<body id="report">
+    <div class="blur-background">
+        <div class="content_block">
+            <div class="block">
+                <div class="head spaceBetween">
+                    <div class="head flexStart">
+                        <div class="img_at">
+                        </div>
+                        <div class="right">
+                            <a class="block_head" href="mailto:board@altech.org.uk">board@altech.org.uk</a>
+                            <div class="block_head">Algebraic Technologies LTD</div>
+                        </div>
+                    </div>
+                    <button mat-raised-button color="warn" *ngIf="genproc" (click)="geenratePDF()">Generate PDF</button>
+                </div>
+            </div>
+        </div>
+        <div class="content_block ">
+            <div class="block b1 col">
+                <div class="rep_title">
+                    Tokenomics Modelling Report
+                </div>
+
+                <!-- Initial Data tab -->
+                <div>
+                    <table mat-table [dataSource]="initialTableSource" id="initial" class="mat-elevation-z8">
+                        <caption class="table_title">Initial Data</caption>
+
+                        <ng-container matColumnDef="tokenName">
+                            <th mat-header-cell *matHeaderCellDef> Token name </th>
+                            <td mat-cell *matCellDef="let element"> {{element.tokenName}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="totalTokensAmount">
+                            <th mat-header-cell *matHeaderCellDef> Total Tokens Amount </th>
+                            <td mat-cell *matCellDef="let element"> {{element.totalTokensAmount}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="initialTokenPrice">
+                            <th mat-header-cell *matHeaderCellDef> Initial Token Price </th>
+                            <td mat-cell *matCellDef="let element"> {{element.initialTokenPrice}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="duration">
+                            <th mat-header-cell *matHeaderCellDef> Duration </th>
+                            <td mat-cell *matCellDef="let element"> {{element.duration}} </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="initialTableDisplayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: initialTableDisplayedColumns;"></tr>
+                    </table>
+                </div>
+                <div>
+                    <div class="table_title">Initial Token Distribution</div>
+                    <div class="chart-container" #chardContainer>
+                        <canvas height="200px" width="200px" id="PieChart" class="canv">{{ itdChart }}</canvas>
+                    </div>
+                </div>
+
+                <!-- Investment Rounds tab -->
+
+                <div class="distribution">
+                    <div>
+                        <div class="table_title_litle">Investment Rounds</div>
+                        <table mat-table [dataSource]="roundDistributionTableSource" class="mat-elevation-z8 t">
+                            <ng-container matColumnDef="source_name">
+                                <th mat-header-cell *matHeaderCellDef> Round Title </th>
+                                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="investorShare">
+                                <th mat-header-cell *matHeaderCellDef> Token Share </th>
+                                <td mat-cell *matCellDef="let element"> {{element.share}} % </td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="roundDistributionDisplayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: roundDistributionDisplayedColumns;"></tr>
+                        </table>
+                    </div>
+
+                    <div>
+                        <div class="table_title_litle">Agents</div>
+                        <table mat-table [dataSource]="agentDistributionTableSource" class="mat-elevation-z8 t">
+                            <ng-container matColumnDef="agentName">
+                                <th mat-header-cell *matHeaderCellDef> Agent name </th>
+                                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="agentShare">
+                                <th mat-header-cell *matHeaderCellDef> Token Share </th>
+                                <td mat-cell *matCellDef="let element"> {{element.share}} % </td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="agentDistributionDisplayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: agentDistributionDisplayedColumns;"></tr>
+                        </table>
+                    </div>
+
+                    <div>
+                        <div class="table_title_litle">Pools</div>
+                        <table mat-table [dataSource]="poolDistributionTableSource" class="mat-elevation-z8 t">
+                            <ng-container matColumnDef="poolTitle">
+                                <th mat-header-cell *matHeaderCellDef> Pool name </th>
+                                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="poolShare">
+                                <th mat-header-cell *matHeaderCellDef> Token Share </th>
+                                <td mat-cell *matCellDef="let element"> {{element.share}} % </td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="poolDistributionDisplayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: poolDistributionDisplayedColumns;"></tr>
+                        </table>
+                    </div>
+
+                </div>
+
+                <!-- Vesting & Unlocking tab -->
+
+                <div class="unlVest">
+                    <div class="table_title">Vesting & Unlocking</div>
+                    <div class="table_title_litle" *ngIf="unlockingFlag">Unlocking Schedule</div>
+                    <table *ngIf="unlockingFlag" mat-table [dataSource]="unlockTableSource" class="mat-elevation-z8">
+                        <ng-container matColumnDef="agent_optionValue">
+                            <th mat-header-cell *matHeaderCellDef> Agent name </th>
+                            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="startUnlocking">
+                            <th mat-header-cell *matHeaderCellDef> Start Unlocking </th>
+                            <td mat-cell *matCellDef="let element"> {{element.start}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="endUnlocking">
+                            <th mat-header-cell *matHeaderCellDef> End Unlocking </th>
+                            <td mat-cell *matCellDef="let element"> {{element.end}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="initialUnlocking">
+                            <th mat-header-cell *matHeaderCellDef> Initial Unlocking </th>
+                            <td mat-cell *matCellDef="let element"> {{element.init}} </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="unlockDisplayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: unlockDisplayedColumns;"></tr>
+                    </table>
+                    <div class="lineChartBlock">
+                        <div *ngIf="unlockingFlag" class="chart-container-lineral">
+                            <canvas height="100%" width="100%" id="UnlockingChart" class="canv">{{ unlockingChart
+                                }}</canvas>
+                        </div>
+                    </div>
+
+
+                    <div class="table_title_litle" *ngIf="vestongFlag">Vesting</div>
+                    <table *ngIf="vestongFlag" mat-table [dataSource]="vestingTableSource" class="mat-elevation-z8">
+                        <ng-container matColumnDef="agentName">
+                            <th mat-header-cell *matHeaderCellDef> Agent name </th>
+                            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="startVesting">
+                            <th mat-header-cell *matHeaderCellDef> Start Vesting </th>
+                            <td mat-cell *matCellDef="let element"> {{element.start}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="endVesting">
+                            <th mat-header-cell *matHeaderCellDef> End Vesting </th>
+                            <td mat-cell *matCellDef="let element"> {{element.end}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="vestingCoefficient">
+                            <th mat-header-cell *matHeaderCellDef> Vesting Coefficient </th>
+                            <td mat-cell *matCellDef="let element"> {{element.coef}} </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="vestingDisplayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: vestingDisplayedColumns;"></tr>
+                    </table>
+                </div>
+
+                <!-- Project Services Tab -->
+
+                <div class="projectServices">
+                    <div class="table_title">Project Services</div>
+                    <div *ngFor="let item of projServicesData" class="curveTables">
+                        <div class="table_title_litle" *ngIf="item.data.length>0">{{item.name}}</div>
+                        <div class="table_subTitle" *ngIf="item.data.length>0">{{item.name}} Marketing Plan/Income</div>
+
+                        <table mat-table [dataSource]="item.data" *ngIf="item.data.length>0" class="mat-elevation-z8">
+                            <ng-container matColumnDef="number">
+                                <th mat-header-cell *matHeaderCellDef> # </th>
+                                <td mat-cell *matCellDef="let element"> {{element.number}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="startSales">
+                                <th mat-header-cell *matHeaderCellDef> Sales Start </th>
+                                <td mat-cell *matCellDef="let element"> {{element.start}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="endSales">
+                                <th mat-header-cell *matHeaderCellDef> Sales End </th>
+                                <td mat-cell *matCellDef="let element"> {{element.end}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="minSales">
+                                <th mat-header-cell *matHeaderCellDef> Sales Min (USD) </th>
+                                <td mat-cell *matCellDef="let element"> {{element.minSales}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="maxSales">
+                                <th mat-header-cell *matHeaderCellDef> Sales Max (USD) </th>
+                                <td mat-cell *matCellDef="let element"> {{element.maxSales}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="algorithm">
+                                <th mat-header-cell *matHeaderCellDef> Algorithm </th>
+                                <td mat-cell *matCellDef="let element"> {{element.algorithm}} </td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="servicesDisplayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: servicesDisplayedColumns;"></tr>
+                        </table>
+                    </div>
+
+                    <div class="lineChartBlock">
+                        <div *ngIf="incomesFlag" class="chart-container-lineral">
+                            <canvas height="100%" width="100%" id="IncomesChart" class="canv">{{ incomeChart }}</canvas>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Modelling Results Tab -->
+
+                <div class="modelingRes">
+                    <div class="table_title" *ngIf="tokenPriceFlag || liquidityFlag">Modelling Results</div>
+
+                    <div class="table_title_litle" *ngIf="tokenPriceFlag">Token Price</div>
+                    <div class="lineChartBlock">
+                        <div *ngIf="tokenPriceFlag" class="chart-container-lineral">
+                            <canvas height="100%" width="100%" id="TokenPriceChart" class="canv">{{ tokenPriceChart
+                                }}</canvas>
+                        </div>
+                    </div>
+
+                    <div class="table_title_litle" *ngIf="liquidityFlag">Liquidity</div>
+                    <div class="lineChartBlock">
+                        <div *ngIf="liquidityFlag" class="chart-container-lineral">
+                            <canvas height="100%" width="100%" id="LiquidityPriceChart" class="canv">{{ liquidityChart
+                                }}</canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<app-loader *ngIf="loading" [text]="'PDF generation process'"></app-loader>

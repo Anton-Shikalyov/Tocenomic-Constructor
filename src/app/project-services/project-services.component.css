@@ -1,0 +1,142 @@
+.black-menu{
+    background-color: black;
+    height: auto;
+    min-height: 100%;
+    min-width: 46%;
+    max-width: 60%;
+    padding: 0 2em;
+    border-radius: 3.7em 0 33px 0;
+    position: relative;
+    bottom: 6.23em;
+}
+
+.inp {
+    width: 12em;
+}
+.inp1 {
+    width: 12em;
+}
+
+
+.inp-service {
+    max-width: 12em;
+    height: 35px;
+    background-color: transparent;
+    color: white;
+    appearance: none;
+    border: none;
+    border-radius: 9px;
+    text-align: center;
+    margin: 0.7em;
+}
+
+.inside-btn {
+    width: 22px;
+    height: 22px;
+    position: relative;
+    right: 2.6em;
+    background-color: transparent;
+    border: none;
+    color: white;
+}
+
+.plus-minus-btn {
+    border: 0;
+    border-radius: 5px;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: transparent;
+    color: black;
+    font-size: 2rem;
+    padding-top: 0.85em;
+}
+
+h2 {
+    padding-left: 3em;
+    font-size: 1.5em;
+}
+
+.inp-padding {
+    padding-right: 3em;
+}
+
+::-webkit-scrollbar {
+    background-color: #26262700;
+    border-radius: 1em;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 1em;
+}
+
+#overflow::-webkit-scrollbar-thumb {
+    background-color: #bac0c5;
+    border-radius: 1em;
+}
+
+#overflow {
+    max-height: 600px;
+    overflow: auto;
+}
+
+@media (max-width: 1366px) {
+    .inside-btn {
+        right: 3em;
+    }
+    .inp1 {
+        width: 7em !important;
+    }
+    .inp {
+        width: 11em;
+    }
+    .inp {
+        width: 11em;
+    }
+    .inp-padding {
+        padding-right: 0;
+    }
+    .wrap-inp-block {
+        display: flex;
+        width: 100%;
+        margin: auto;
+        justify-content: center;
+        font-size: 0.9em;
+    }
+    #body {
+        position: relative;
+        bottom: 0.2em;
+    }
+}
+@media (min-width: 2500px) and (max-width: 2860px) {
+    .inside-btn {
+        right: 2.2em;
+        font-size: 1em;
+    }
+    .inp-service {
+        height: 2em;
+        font-size: 1em;
+    }
+    h2 {
+        padding-left: 1em;
+        font-size: 2em;
+    }
+    .inp {
+        width: 10em;
+    }
+    .plus-minus-btn {
+        font-size: 3rem;
+    }
+    .inp-padding {
+        padding-right: 1em;
+    }
+    .inp-body {
+        width: 7em !important;
+    }
+    .inp1 {
+        width: 7em;
+    }
+    .wrap-inp-block label {
+        font-size: 0.85em;
+    }
+}

@@ -1,0 +1,53 @@
+<app-block-template id="top" [data]="false">
+    <div id="header">
+        <div class="header-left"  
+             style="width: auto;">
+            <h2>INITIAL DATA</h2>
+            <div class="container">
+                <input type="file" (change)="onFileSelected($event)" hidden #fileUpload>
+                <button  class="summary_submit_button"  (click)="fileUpload.click()">Upload JSON</button>
+            </div>
+        </div>
+        <div class="header-right">
+            <div>
+                <p style="justify-content: end; display: flex; margin-top: 3em;" class="p-1em">Upload the JSON file saved earlier or fill in the tables below. </p>
+            </div>
+        </div>
+    </div>
+    <div id="body" class="wrap-inp-block ">
+        <div class="p-block">
+            <label for="total-tokens-amount">Token name</label>
+            <input class="inp inp-for-grey" type="text" [(ngModel)]="tokenName" (input)="onInputChange($event)" min="0">
+        </div>
+        <div class="p-block">
+            <label for="total-tokens-amount">Total Tokens Amount</label>
+            <input class="inp inp-for-grey" type="number" [(ngModel)]="tokenAmount" (input)="onInputChange($event)" placeholder="0" min="0">
+        </div>
+            <div class="p-block">
+            <label for="initial-token-price">Initial Token Price</label>
+            <input class="inp inp-for-grey" type="number" [(ngModel)]="tokenPrice" (input)="onInputChange($event)" placeholder="0" min="0">
+        </div>
+            <div class="p-block">
+            <label for="exchange-type">Exchange Type</label>
+            <select class="inp inp-for-grey" [(ngModel)]="exchangeType" (click)="onInputChange($event)">
+                <option value="decentralized">Decentralized</option>
+                <option value="centralized">Centralized</option>
+            </select>
+        </div>
+            <div class="p-block">
+            <label for="trading-function">Trading Function</label>
+            <select class="inp inp-for-grey" [(ngModel)]="tradingFunction" (click)="onInputChange($event)">
+                <option value="increasing">Increasing</option>
+                <option value="decreasing">Decreasing</option>
+                <option value="volatility">Volatility</option>
+            </select>
+        </div>
+            <div class="p-block">
+            <label for="duration">Duration</label>
+            <input class="inp inp-for-grey" type="number" [(ngModel)]="duration" (input)="onInputChange($event)" placeholder="0" min="0">
+        </div>
+    </div>
+    <div id="arrow_downward">
+        <a href="secondBlock"></a>
+    </div>
+</app-block-template>

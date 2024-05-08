@@ -1,0 +1,76 @@
+<app-block-template>
+    <div id="header">
+        <div class="header-left">
+            <h2>POOLS </h2>
+        </div>
+        <div class="header-right">
+        <p class="p-1em">Pools are so-called safes to which tokens/funds are allocated for various services or project needs.
+            Add the Pools that you have in project. If they are included in the Initial tokens distribution, fill in one of the fields - " Pool Share" or " Amount."
+            Pool types - project tokens (tokens), fiat (USD, UAN, etc.), cryptocurrency (USDC, USDT, etc.)
+        </p>
+        <p>
+            Note! stakingPool will be added to the table automatically (based on the project's services)
+        </p>
+        </div>
+    </div>
+    <div id="blackBlock">
+        <div class="black inp-block-position">
+            <div class="inp-block" *ngFor="let item of arr; let i = index">
+                <div class="p-block">
+                    <label for="№">№</label>
+                    <input class="inp inp-for-black" type="number" 
+                        [(ngModel)]="item.poolNumber" 
+                        (input)="valuechange($event)" min="0"
+                        [disabled]="i == 0">
+                </div>
+                <div class="p-block">
+                    <label for="rounds-number">Pool Type</label>
+                    <input class="inp inp-for-black" type="text" 
+                    [(ngModel)]="item.poolType" 
+                    (input)="valuechange($event)"
+                     placeholder="Pool Type" min="0"
+                     [disabled]="i == 0">
+                </div>
+                <div>
+                    <button (click)="increasePool()" class="plus-minus-btn">+</button>
+                    <button (click)="decreasePool(i)" class="plus-minus-btn">-</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="body">
+        <div id="overflow">
+            <ng-container  *ngFor="let item of arrBlock; let i = index">
+                <div id="body body-scroll" class="wrap-inp-block ">
+                    <ng-container >
+                        <div class="p-block">
+                            <label>Pool Title</label>
+                            <input class="inp inp-for-grey" [(ngModel)]="item.poolTitle" (input)="updatePool($event, i)" min="0">
+                        </div>
+                        <div class="p-block">
+                            <label for="total-tokens-amount">Pool Type</label>
+                            <select class="inp inp-for-grey" [(ngModel)]="item.poolType" (click)="selectPoolType(item.poolType, i)">
+                                <ng-container *ngFor="let item of arr; let i = index;">
+                                    <option [value]="i">{{ item.poolType }}</option>
+                                </ng-container>
+                            </select> 
+                        </div>
+                        <div class="p-block">
+                            <label for="total-tokens-amount">Pool Share</label>
+                            <input class="inp inp-for-grey" type="number" [(ngModel)]="item.poolShare" (input)="onInputPoolShare($event, i)" placeholder="%" min="0">
+                        </div>
+                        <div class="p-block">
+                            <label for="total-tokens-amount">Amount</label>
+                            <input class="inp inp-for-grey" type="number" [(ngModel)]="item.amount" (input)=" onInputPoolAmount($event, i)" placeholder="10000" min="0">
+                        </div>
+                        <div>                       
+                            <button (click)="decreasePoolBlock(i)" class="plus-minus-btn-block">-</button>
+                            <button (click)="increasePoolBLock()" class="plus-minus-btn-block">+</button>
+                        </div>
+                    </ng-container>
+                </div>
+        </ng-container>
+        </div>
+            <button class="build-sc-btn" (click)="openModal()">Build scheme</button>
+    </div>
+</app-block-template>

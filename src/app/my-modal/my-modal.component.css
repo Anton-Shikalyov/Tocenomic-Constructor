@@ -1,0 +1,93 @@
+.modal-content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-height: 80%;
+  width: 80%;
+  background-size: 100% 100%;
+  background-image: url("../../img/ModalGlass.png");
+  background-repeat: round;
+  border: none;
+  box-shadow: none;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.mat-dialog-container {
+  backdrop-filter: blur(8px);
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.inp-modal {
+  width: 98%;
+  height: 2.3em;
+  border: none;
+  border-radius: 9px;
+  text-align: center;
+  margin: 0.7em;
+  font-size: 1em;
+}
+
+.modalTitle {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+}
+
+.myLegend {
+  display: flex;
+  flex-direction: column;
+  width: 15em;
+  height: 20em;
+  overflow: auto;
+  margin-right: 4em;
+}
+
+.square {
+  width: 1em;
+  height: 1em;
+  border: 1px solid;
+  margin: 1em;
+}
+
+.modalTitle {
+  position: absolute;
+  top: 1.2em;
+  left: calc(2em + 5%);
+  font-size: 2.5em;
+}
+.modalCanvas {
+  position: relative; 
+  height: 50vh;
+  width: 80vw;
+  margin-left: 20vw;
+  margin-top: 5vw;
+}
+
+@media (max-width: 1380px){
+  .modalTitle {
+    top: 1.4em;
+    left: calc(2em + 6%);
+    font-size: 1.7em;
+  }
+}
+
+@media (min-width: 2500px) and (max-width: 2860px) {
+  .modalTitle {
+    position: absolute;
+    top: 1.7em;
+    left: calc(3em + 5%);
+    font-size: 3em;
+  }
+  .myLegend {
+    font-size: 1.5em;
+    margin-top: 2em;
+  }
+}

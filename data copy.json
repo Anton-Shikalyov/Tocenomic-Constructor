@@ -1,0 +1,429 @@
+{
+  "initialData": {
+      "totalTokensAmount": 10000000,
+      "initialTokenPrice": 0.1,
+      "exchangeType": "decentralized",
+      "tradingFunction": "increasing",
+      "duration": 120
+  },
+  "investmentRounds": {
+      "numerableInput": 3,
+      "rows": {
+          "0": {
+              "roundTitle": "PublicSale",
+              "fiat": 100000,
+              "tokenPrice": 0.1,
+              "tokensAmount": 10000,
+              "investorShare": 0.1
+          },
+          "1": {
+              "roundTitle": "PrivateSale",
+              "fiat": 1200000,
+              "tokenPrice": 0.1,
+              "tokensAmount": 120000,
+              "investorShare": 1.2
+          },
+          "2": {
+              "roundTitle": "TGE",
+              "fiat": 2000000,
+              "tokenPrice": 0.2,
+              "tokensAmount": 400000,
+              "investorShare": 4
+          }
+      },
+      "name": "table"
+  },
+  "agents": {
+      "numerableInput": 4,
+      "rows": {
+          "0": {
+              "agentName": "team",
+              "agentShare": 0.1,
+              "tokensAmount": 10000
+          },
+          "1": {
+              "agentName": "hold",
+              "agentShare": 0.2,
+              "tokensAmount": 20000
+          },
+          "2": {
+              "agentName": "marketing",
+              "agentShare": 0.11,
+              "tokensAmount": 11000
+          },
+          "3": {
+              "agentName": "investor",
+              "agentShare": 0.22,
+              "tokensAmount": 22000
+          }
+      },
+      "name": "table"
+  },
+  "pools": {
+      "tables": {
+          "poolTypes": {
+              "rows": {
+                  "0": {
+                      "poolNumber": 1,
+                      "poolType": "token"
+                  },
+                  "1": {
+                      "poolNumber": 2,
+                      "poolType": "fiat"
+                  }
+              },
+              "name": "poolTypes"
+          },
+          "pools": {
+              "rows": {
+                  "0": {
+                      "poolTitle": "mainPool",
+                      "poolType": 0,
+                      "poolType_optionId": 0,
+                      "poolType_optionValue": "token",
+                      "poolShare": 0.1,
+                      "amount": 10000
+                  },
+                  "1": {
+                      "poolTitle": "fiatPool",
+                      "poolType": 1,
+                      "poolType_optionId": 1,
+                      "poolType_optionValue": "fiat",
+                      "poolShare": 0.2,
+                      "amount": 20000
+                  },
+                  "2": {
+                      "poolTitle": "rewards",
+                      "poolType": 0,
+                      "poolType_optionId": 0,
+                      "poolType_optionValue": "token",
+                      "poolShare": 0.1,
+                      "amount": 10000
+                  }
+              },
+              "name": "pools"
+          }
+      }
+  },
+  "vestingAndUnlocking": {
+      "tables": {
+          "vesting": {
+              "rows": {
+                  "0": {
+                      "agentName": 0,
+                      "agentName_optionId": 0,
+                      "agentName_optionValue": "team",
+                      "poolTitle": 0,
+                      "poolTitle_optionId": 0,
+                      "poolTitle_optionValue": "mainPool",
+                      "startVesting": 1,
+                      "endVesting": 10,
+                      "vestingCoefficient": 0.1
+                  },
+                  "1": {
+                      "agentName": 2,
+                      "agentName_optionId": 2,
+                      "agentName_optionValue": "marketing",
+                      "poolTitle": 0,
+                      "poolTitle_optionId": 0,
+                      "poolTitle_optionValue": "mainPool",
+                      "startVesting": 10,
+                      "endVesting": 20,
+                      "vestingCoefficient": 0.1
+                  }
+              },
+              "name": "vesting"
+          },
+          "unlocking": {
+              "rows": {
+                  "0": {
+                      "agentName": 0,
+                      "agentName_optionId": 0,
+                      "agentName_optionValue": "team",
+                      "startUnlocking": 1,
+                      "endUnlocking": 10,
+                      "initialUnlocking": 10
+                  },
+                  "1": {
+                      "agentName": 1,
+                      "agentName_optionId": 1,
+                      "agentName_optionValue": "hold",
+                      "startUnlocking": 1,
+                      "endUnlocking": 20,
+                      "initialUnlocking": 10
+                  }
+              },
+              "name": "unlocking"
+          }
+      }
+  },
+  "projectServices": {
+      "serviceTables": {
+          "staking": {
+              "rows": {
+                  "0": {
+                      "number": 1,
+                      "agentName": 0,
+                      "agentName_optionId": 0,
+                      "agentName_optionValue": "team",
+                      "agentShare": 0.1,
+                      "unstakingFactor": 0.1,
+                      "rewardCoefficient": 0.1,
+                      "poolForRewards": 2,
+                      "poolForRewards_optionId": 2,
+                      "poolForRewards_optionValue": "rewards"
+                  },
+                  "1": {
+                      "number": 2,
+                      "agentName": 1,
+                      "agentName_optionId": 1,
+                      "agentName_optionValue": "hold",
+                      "agentShare": 0.1,
+                      "unstakingFactor": 0.2,
+                      "rewardCoefficient": 0.1,
+                      "poolForRewards": 2,
+                      "poolForRewards_optionId": 2,
+                      "poolForRewards_optionValue": "rewards"
+                  }
+              },
+              "name": "staking"
+          },
+          "farming": {
+              "rows": {
+                  "0": {
+                      "number": 1,
+                      "agentName": 0,
+                      "agentName_optionId": 0,
+                      "agentName_optionValue": "team",
+                      "agentShare": 0.1,
+                      "unstakingFactor": 0.1,
+                      "rewardCoefficient": 0.1,
+                      "poolForRewards": 2,
+                      "poolForRewards_optionId": 2,
+                      "poolForRewards_optionValue": "rewards"
+                  },
+                  "1": {
+                      "number": 2,
+                      "agentName": 1,
+                      "agentName_optionId": 1,
+                      "agentName_optionValue": "hold",
+                      "agentShare": 0.2,
+                      "unstakingFactor": 0.1,
+                      "rewardCoefficient": 0.1,
+                      "poolForRewards": 2,
+                      "poolForRewards_optionId": 2,
+                      "poolForRewards_optionValue": "rewards"
+                  },
+                  "2": {
+                      "number": 3,
+                      "agentName": 2,
+                      "agentName_optionId": 2,
+                      "agentName_optionValue": "marketing",
+                      "agentShare": 0.3,
+                      "unstakingFactor": 0.1,
+                      "rewardCoefficient": 0.1,
+                      "poolForRewards": 2,
+                      "poolForRewards_optionId": 2,
+                      "poolForRewards_optionValue": "rewards"
+                  }
+              },
+              "name": "farming"
+          }
+      },
+      "curveTables": {
+          "0": {
+              "rows": {
+                  "0": {
+                      "curveNumber": 1,
+                      "salesStart": 4,
+                      "salesEnd": 7,
+                      "salesMin": 10000,
+                      "salesMax": 10000,
+                      "chooseAlgorithm": "Linear",
+                      "angularCoefficient": 0.9,
+                      "risingsCoefficient": 0.7
+                  },
+                  "1": {
+                      "curveNumber": 2,
+                      "salesStart": 4,
+                      "salesEnd": 7,
+                      "salesMin": 10000,
+                      "salesMax": 10000,
+                      "chooseAlgorithm": "Exponential",
+                      "angularCoefficient": 0.9,
+                      "risingsCoefficient": 0.7
+                  },
+                  "2": {
+                      "curveNumber": 3,
+                      "salesStart": 4,
+                      "salesEnd": 7,
+                      "salesMin": 10000,
+                      "salesMax": 10000,
+                      "chooseAlgorithm": "Exponential",
+                      "angularCoefficient": 0.9,
+                      "risingsCoefficient": 0.7
+                  },
+                  "3": {
+                      "curveNumber": 4,
+                      "salesStart": 4,
+                      "salesEnd": 7,
+                      "salesMin": 10000,
+                      "salesMax": 10000,
+                      "chooseAlgorithm": "Linear",
+                      "angularCoefficient": 0.9,
+                      "risingsCoefficient": 0.7
+                  }
+              },
+              "name": "myService"
+          },
+          "staking": {
+              "rows": {
+                  "0": {
+                      "curveNumber": 1,
+                      "salesStart": 4,
+                      "salesEnd": 7,
+                      "salesMin": 10000,
+                      "salesMax": 10000,
+                      "chooseAlgorithm": "Linear",
+                      "angularCoefficient": 0.9,
+                      "risingsCoefficient": 0.7
+                  },
+                  "1": {
+                      "curveNumber": 2,
+                      "salesStart": 4,
+                      "salesEnd": 7,
+                      "salesMin": 10000,
+                      "salesMax": 10000,
+                      "chooseAlgorithm": "Exponential",
+                      "angularCoefficient": 0.9,
+                      "risingsCoefficient": 0.7
+                  },
+                  "2": {
+                      "curveNumber": 3,
+                      "salesStart": 4,
+                      "salesEnd": 7,
+                      "salesMin": 10000,
+                      "salesMax": 10000,
+                      "chooseAlgorithm": "Linear",
+                      "angularCoefficient": 0.9,
+                      "risingsCoefficient": 0.7
+                  }
+              },
+              "name": "Staking"
+          },
+          "farming": {
+              "rows": {
+                  "0": {
+                      "curveNumber": 1,
+                      "salesStart": 4,
+                      "salesEnd": 7,
+                      "salesMin": 10000,
+                      "salesMax": 10000,
+                      "chooseAlgorithm": "Linear",
+                      "angularCoefficient": 0.9,
+                      "risingsCoefficient": 0.7
+                  },
+                  "1": {
+                      "curveNumber": 2,
+                      "salesStart": 4,
+                      "salesEnd": 7,
+                      "salesMin": 10000,
+                      "salesMax": 10000,
+                      "chooseAlgorithm": "Exponential",
+                      "angularCoefficient": 0.9,
+                      "risingsCoefficient": 0.7
+                  },
+                  "2": {
+                      "curveNumber": 3,
+                      "salesStart": 4,
+                      "salesEnd": 7,
+                      "salesMin": 10000,
+                      "salesMax": 10000,
+                      "chooseAlgorithm": "Exponential",
+                      "angularCoefficient": 0.9,
+                      "risingsCoefficient": 0.7
+                  },
+                  "3": {
+                      "curveNumber": 4,
+                      "salesStart": 4,
+                      "salesEnd": 7,
+                      "salesMin": 10000,
+                      "salesMax": 10000,
+                      "chooseAlgorithm": "Linear",
+                      "angularCoefficient": 0.9,
+                      "risingsCoefficient": 0.7
+                  }
+              },
+              "name": "Farming"
+          }
+      }
+  },
+  "tokenCirculation": {
+      "tables": {
+          "actions": {
+              "rows": {
+                  "0": {
+                      "actionNumber": "Action 1",
+                      "source": 0,
+                      "source_optionId": 0,
+                      "source_optionValue": "mainPool",
+                      "currencyType": 0,
+                      "currencyType_optionId": 0,
+                      "currencyType_optionValue": "token",
+                      "valuePercents": 10,
+                      "destionation": 0,
+                      "destionation_optionId": 0,
+                      "destionation_optionValue": "team",
+                      "preCondition": true
+                  },
+                  "1": {
+                      "actionNumber": "Action 2",
+                      "source": 2,
+                      "source_optionId": 2,
+                      "source_optionValue": "rewards",
+                      "currencyType": 0,
+                      "currencyType_optionId": 0,
+                      "currencyType_optionValue": "token",
+                      "valuePercents": 10,
+                      "destionation": 0,
+                      "destionation_optionId": 0,
+                      "destionation_optionValue": "team",
+                      "preCondition": true
+                  },
+                  "2": {
+                      "actionNumber": "Action 3",
+                      "source": 2,
+                      "source_optionId": 2,
+                      "source_optionValue": "rewards",
+                      "currencyType": 0,
+                      "currencyType_optionId": 0,
+                      "currencyType_optionValue": "token",
+                      "valuePercents": 10,
+                      "destionation": 2,
+                      "destionation_optionId": 2,
+                      "destionation_optionValue": "marketing",
+                      "preCondition": true
+                  }
+              },
+              "name": "actions",
+              "preconds": {
+                  "0": {
+                      "poolThreshold": {
+                          "andor": null
+                      }
+                  },
+                  "1": {
+                      "time": {
+                          "monthly": true
+                      }
+                  },
+                  "2": {
+                      "time": {
+                          "monthly": true
+                      }
+                  }
+              }
+          }
+      }
+  }
+}

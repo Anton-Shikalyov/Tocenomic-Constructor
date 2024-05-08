@@ -1,0 +1,244 @@
+<app-block-template [data]="false">
+  <div id="header">
+    <div class="header-left">
+      <h2>TOKEN CIRCULATION</h2>
+    </div>
+    <div class="header-right">
+      <p>
+        You can add actions describing the circulation of the tokens between
+        tokenomics entities (agents, pools, etc.). The Source can be an Agent,
+        Pool, or Income of one of the added services. The Destination can be an
+        Agent or Pool. Pre-Condition - is the condition under which the
+        corresponding action takes place. These can be the time in which the
+        specified action should take place, pool threshold values, or token
+        price threshold values.
+      </p>
+    </div>
+  </div>
+  <div id="body" class="overflow">
+    <ng-container *ngFor="let item of arrToken; let i = index">
+      <div id="overflow" class="wrap-inp-block">
+        <div class="p-block">
+          <label>Acion №</label>
+          <input
+            class="inp inp-for-grey"
+            type="text"
+            [(ngModel)]="item.action"
+            min="0" (input)="eventToken(i)"
+          />
+        </div>
+        <div class="p-block">
+        <label>Source</label>
+        <select class="inp inp-for-grey" [(ngModel)]="item.source" (change)="onSelectSource(i, item.source); eventToken(i)">
+          <option *ngFor="let agentItem of sourceArr; let k = index" [value]="k">{{ agentItem.name }}</option>
+        </select> 
+      </div>
+        <div class="p-block">
+          <label>Currency Type</label>
+          <select class="inp inp-for-grey" [(ngModel)]="item.currencyType" (change)="eventToken(i)">
+              <option *ngFor="let item of poolStr; let i = index;" [value]="i">{{ item.poolType }}</option>
+          </select>
+        </div>
+        <div class="p-block">
+          <label>Value % (per month)</label>
+          <input class="inp inp-for-grey" [(ngModel)]="item.valuePercentes" (input)="eventToken(i)" type="number" placeholder="0" min="0"/>
+        </div>
+        <div class="p-block">
+          <label>Destination</label>
+          <select class="inp inp-for-grey" [(ngModel)]="item.destination" (click)="onSelectDestination(i, item.destination); eventToken(i)" >
+            <option *ngFor="let agentItem of agentPool; let k = index" [value]="k">{{ agentItem.name }}</option>
+          </select> 
+        </div>
+        <div class="p-block">
+          <label>Pre-Condition</label>
+          <select class="inp inp-for-grey" value="No" [(ngModel)]="item.preCondition" (change)="openModal(template, i); eventToken(i)">
+            <option selected value="No">No</option>
+            <option value="Yes">Yes</option>
+            <option value="Show">Show</option>
+          </select> 
+        </div>
+        <div>
+          <button (click)="decreaseToken(i)" class="plus-minus-btn">-</button>
+          <button (click)="increaseToken()" class="plus-minus-btn">+</button>
+        </div>
+      </div>
+  
+      <!-- MODAL WINDOW -->
+  
+      <ng-template #template>
+        <div id="modal" class="modal-open" (click)="modalCl(i, false)">
+          <div class="modal-dialog">
+            <div class="modal-content" >
+              <div>
+                  <div>
+                      <div class="modal-paragraph">
+                          <button class="v-btn" (click)="switchTime(i)"><mat-icon [class.active]="activeTimeBtn">check</mat-icon></button>
+                          <label>Time</label>    
+                      </div>    
+                      <div style="padding-left: 8em;">
+                          <div>
+                              <button class="v-btn-small" (click)="setTimeComponent(1, i)" [disabled]="selectTime"><mat-icon [class.active]="activeComponentTime === 1">check</mat-icon></button>
+                              <label>Monthly</label>
+                          </div>
+                          <div>
+                              <button class="v-btn-small" (click)="setTimeComponent(2, i)" [disabled]="selectTime"><mat-icon [class.active]="activeComponentTime === 2">check</mat-icon></button>
+                              <label>When month is</label>
+  
+                              <select class="inp inp-small inp-modal" [(ngModel)]="timeEqSign" (click)="setTimeComponent(2, i, '+')" [disabled]="activeComponentTime !== 2">
+                                <option value="&#60;">&#60;</option>
+                                <option value="&#60;=">&#60;=</option>
+                                <option value=">=">&#62;=</option>
+                                <option value=">">&#62;</option>
+                                <option value="==">==</option>
+                                <option value="!=">!=</option>
+                              </select>
+                          <input class="inp-decart" [(ngModel)]="timeInputVal" (input)="setTimeComponent(2, i, '+')" type="number" placeholder="X" min="0" [disabled]="activeComponentTime !== 2">
+                          </div>
+                          <div>
+                              <button class="v-btn-small" (click)="setTimeComponent(3, i)" [disabled]="selectTime"><mat-icon [class.active]="activeComponentTime === 3" >check</mat-icon></button>
+                                <label>When month is</label>      
+                                  <select class="inp inp-small inp-modal" [(ngModel)]="timeEqSign1" [disabled]="activeComponentTime !== 3">
+                                    <option value="&#60;">&#60;</option>
+                                    <option value="&#60;=">&#60;=</option>
+                                    <option value=">=">&#62;=</option>
+                                    <option value=">">&#62;</option>
+                                    <option value="==">==</option>
+                                    <option value="!=">!=</option>
+                                  </select> 
+                              <input class="inp-decart" type="number" [(ngModel)]="timeInputVal1" (input)="setTimeComponent(3, i, '+')" placeholder="X" min="0" [disabled]="activeComponentTime !== 3"> 
+                              <p class="modal-p">and</p>
+                                <select class="inp inp-small inp-modal" [(ngModel)]="timeEqSign2" (click)="setTimeComponent(3, i, '+')" [disabled]="activeComponentTime !== 3">
+                                  <option value="&#60;">&#60;</option>
+                                  <option value="&#60;=">&#60;=</option>
+                                  <option value=">=">&#62;=</option>
+                                  <option value=">">&#62;</option>
+                                  <option value="==">==</option>
+                                  <option value="!=">!=</option>
+                                </select> 
+                              <input class="inp-decart" type="number" [(ngModel)]="timeInputVal2" (input)="setTimeComponent(3, i, '+')" placeholder="Y" min="0" [disabled]="selectTime">
+                          </div>    
+                      </div>        
+                  </div>
+  
+                  <div>
+                    <select class="inp inp-modal precondition" [(ngModel)]="andor" [disabled]="selectToken">
+                      <option selected value="AND">{{ "AND" }}</option>
+                      <option value="OR">{{ "OR" }}</option>
+                  </select> 
+                      <div class="modal-paragraph">
+                          <button class="v-btn" (click)="switchTokenComponent(i)"><mat-icon [class.active]="activeTokenBtn">check</mat-icon></button>
+                          <label>Token price threshold values</label>    
+                      </div>    
+                      <div style="padding-left: 8em;">
+                          <div>
+                              <button (click)="setTokenComponent(1, i)" class="v-btn-small" [disabled]="selectToken"><mat-icon [class.active]="activeComponentToken === 1" >check</mat-icon></button>
+                              <label>When token price is</label>
+  
+                              <select class="inp inp-small inp-modal"  [disabled]="activeComponentToken !== 1" (click)="setTokenComponent(1, i,'+')" [(ngModel)]="tokenEqSign" [disabled]="activeComponentToken !== 1">
+                                <option value="&#60;">&#60;</option>
+                                <option value="&#60;=">&#60;=</option>
+                                <option value=">=">&#62;=</option>
+                                <option value=">">&#62;</option>
+                                <option value="==">==</option>
+                                <option value="!=">!=</option>
+                              </select> 
+                              <input class="inp-decart" type="number" placeholder="X" min="0" (input)="setTokenComponent(1, i, '+')" [(ngModel)]="tokenInputVal" [disabled]="activeComponentToken !== 1">
+                          </div>
+                          <div>
+                            <button class="v-btn-small" (click)="setTokenComponent(2, i)"  [disabled]="selectToken"><mat-icon [class.active]="activeComponentToken === 2">check</mat-icon></button>
+                              <label>When token price is</label>      
+                              
+                              <select class="inp inp-small inp-modal" (click)="setTokenComponent(2, i, '+')" [(ngModel)]="tokenEqSign1" [disabled]="activeComponentToken !== 2" >
+                                <option value="&#60;">&#60;</option>
+                                <option value="&#60;=">&#60;=</option>
+                                <option value=">=">&#62;=</option>
+                                <option value=">">&#62;</option>
+                                <option value="==">==</option>
+                                <option value="!=">!=</option>
+                              </select> 
+                              <input class="inp-decart" (input)="setTokenComponent(2, i, '+')"  [(ngModel)]="tokenInputVal1" [disabled]="activeComponentToken !== 2"type="number" placeholder="X" min="0"> 
+                              <p class="modal-p">and</p>
+                              <select class="inp inp-small inp-modal" (click)="setTokenComponent(2, i, '+')"  [(ngModel)]="tokenEqSign2"  [disabled]="activeComponentToken !== 2">
+                                <option value="&#60;">&#60;</option>
+                                <option value="&#60;=">&#60;=</option>
+                                <option value=">=">&#62;=</option>
+                                <option value=">">&#62;</option>
+                                <option value="==">==</option>
+                                <option value="!=">!=</option>
+                              </select> 
+
+                              <input class="inp-decart" (input)="setTokenComponent(2, i, '+')" [(ngModel)]="tokenInputVal2" [disabled]="activeComponentToken !== 2"  type="number" placeholder="Y" min="0"  >
+
+                          </div>    
+                      </div>        
+                  </div>
+  
+                  <div>
+                    <select class="inp inp-modal precondition" [(ngModel)]="andorPool" [disabled]="selectPool">
+                      <option value="AND">{{ "AND" }}</option>
+                      <option value="OR">{{ "OR" }}</option>
+                  </select> 
+                      <div class="modal-paragraph">
+                        <button class="v-btn" (click)="switchPoolComponent(i)"><mat-icon [class.active]="activePoolBtn">check</mat-icon></button>
+                        <label>Pool threshold values</label>    
+                      </div>    
+                      <div style="padding-left: 8em;">
+                          <div>
+                              <button class="v-btn-small" (click)="setPoolComponent(1, i)" [disabled]="selectPool"><mat-icon [class.active]="activeComponentPool === 1">check</mat-icon></button>
+                              <label>When</label>
+                              <select class="inp-pool-modal inp-small"  [(ngModel)]="poolId"  [disabled]="activeComponentPool!==1" (click)="setPoolComponent(1, i, '+')">
+                                  <ng-container *ngFor="let item of poolArr;">
+                                      <option >{{ item.poolTitle }}</option>
+                                  </ng-container> 
+                              </select> 
+                              <p class="modal-p">is</p>
+                              <select class="inp inp-small inp-modal" [(ngModel)]="poolEqSign" [disabled]="activeComponentPool!==1" (click)="setPoolComponent(1, i, '+')" >
+                                <option value="&#60;">&#60;</option>
+                                <option value="&#60;=">&#60;=</option>
+                                <option value=">=">&#62;=</option>
+                                <option value=">">&#62;</option>
+                                <option value="==">==</option>
+                                <option value="!=">!=</option>
+                              </select> 
+                              <input class="inp-decart" [(ngModel)]="poolInputVal" [disabled]="activeComponentPool!==1" (input)="setPoolComponent(1, i, '+')"  type="number" placeholder="X" min="0" >
+                          </div>
+                          <div>
+                              <button class="v-btn-small" (click)="setPoolComponent(2, i)" [disabled]="selectPool"><mat-icon [class.active]="activeComponentPool === 2">check</mat-icon></button>
+                              <label>When</label>      
+                              <select class="inp-pool-modal inp-small" [(ngModel)]="poolId1" [disabled]="activeComponentPool!==2" (click)="setPoolComponent(2, i, '+')">
+                                  <ng-container *ngFor="let item of poolArr;">
+                                      <option >{{ item.poolTitle }}</option>
+                                  </ng-container>
+                              </select> 
+                              <p class="modal-p">is</p>
+                              <select class="inp inp-small inp-modal" [(ngModel)]="poolEqSign1" [disabled]="activeComponentPool!==2" (click)="setPoolComponent(2, i, '+')">
+                                <option value="&#60;">&#60;</option>
+                                <option value="&#60;=">&#60;=</option>
+                                <option value=">=">&#62;=</option>
+                                <option value=">">&#62;</option>
+                                <option value="==">==</option>
+                                <option value="!=">!=</option>
+                              </select> 
+                              <input class="inp-decart" type="number" [(ngModel)]="poolInputVal1" [disabled]="activeComponentPool!==2" (input)="setPoolComponent(2, i, '+')" placeholder="X" min="0"> 
+                              <p class="modal-p">and</p>
+                              <select class="inp inp-small inp-modal" [(ngModel)]="poolEqSign2" [disabled]="activeComponentPool!==2" (click)="setPoolComponent(2, i, '+')">
+                                <option value="&#60;">&#60;</option>
+                                <option value="&#60;=">&#60;=</option>
+                                <option value=">=">&#62;=</option>
+                                <option value=">">&#62;</option>
+                                <option value="==">==</option>
+                                <option value="!=">!=</option>
+                              </select> 
+                              <input class="inp-decart" type="number" [(ngModel)]="poolInputVal2" [disabled]="activeComponentPool!==2" (input)="setPoolComponent(2, i, '+')" placeholder="Y" min="0">
+                          </div>    
+                      </div>        
+                  </div>
+                    <button class="build-sc-btn" (click)="modalCl(i, true)">Submit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </ng-container>
+  </div>
+</app-block-template>

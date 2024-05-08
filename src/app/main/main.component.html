@@ -1,0 +1,63 @@
+<div class="main-header">
+    <div class="main-header-div">
+        <p class="main-header-title">Tokenomics<br>Constructor</p>
+        <p class="body-header-title">The most comprehensive online tool for tokenomics</p>
+        <p class="body-header-title">modelling backed by a team of scientists and</p>
+        <p class="body-header-title">professional blockchain consultants.</p>
+        <a href="#top" class="body-header-title main-button">BUILD YOUR SUSTAINABLE TOKENOMICS NOW!</a>
+    </div>
+    <div class="header-block">
+        <div class="header-description">
+
+            <div style="width: 22em;">
+                <h2>DEVELOPED BY WHOM?</h2>
+                <p> The team Algebraic Technologies LTD is a group of scientists
+                    and programmers who are the followers of the algebraic school
+                    of academician Victor Glushkov with over 20 years of experience
+                    in the usage of formal methods in industry and scientific research</p>
+            </div>
+            <div style="width: 22em;">
+                <h2>WHAT DO WE PROVIDE?</h2>
+                <p> For beginners, we propose the online Tokenomics Constructor
+                    which is in the process of development. Using this site the
+                    user can obtain the different charts and scenarios inputting
+                    his data like the number of tokens, the price, the number of
+                    rounds or emissions, and other parameters and regulators of
+                    Tokenomics.</p>
+            </div>
+            <div style="width: 22em;">
+                <h2>WHAT TOOLS DO WE DO?</h2>
+                <p> We use our tools for creation and launching of formal models
+                    in algebra behavior specifications. As an output of modeling,
+                    we can create charts and traces that present different scenarios.</p>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+<div class="menu-img">
+    <div class="content">
+        <div class="caption">
+            <h1>TOKENOMICS CONSTRUCTOR ONLINE TOOL</h1>
+        </div>
+        <app-initial-data></app-initial-data>
+        <app-investment-rounds></app-investment-rounds>
+        <app-agents></app-agents>
+        <app-pools></app-pools>
+        <app-vstng-unlckg></app-vstng-unlckg>
+        <app-project-services></app-project-services>
+        <app-token></app-token>
+    </div>
+    <div class="futterTitle"> 
+    <p>Send the obtained JSON to <a style="color: #e79851;
+        text-decoration: none;" href="mailto:board@altech.org.uk">board@altech.org.uk</a> and get your Tokenomic Model report by e-mail.</p>
+    </div>
+</div>
+<div *ngIf="!loading" id="container">
+    <a [href]="link" (click)="saveDataToFile()" class="button" download="tokenomicsData.json">JSON</a>
+    <!--<a (click)="convertToAplan()" class="button">APLAN</a>
+    <a (click)="generateReport()" class="button">Report</a>-->
+</div>
+<app-loader *ngIf="loading" [text]="'avm worker process'"></app-loader>

@@ -1,0 +1,59 @@
+<div>
+    <header>
+        <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+    </header>
+    <div *ngIf="showBlock" class="body-menu">
+        <div class="body-menu-header">
+            <div class="left-menu"></div>
+            <div class="arrow">
+                <mat-icon>arrow_downward</mat-icon>
+            </div>
+            <div class="right-menu"></div>
+        </div>
+         <div>
+                <div class="black-menu">
+                    <ng-container *ngTemplateOutlet="blackBlock"></ng-container>
+                </div>
+                <ng-container *ngTemplateOutlet="bodyTemplate"></ng-container>
+        </div>
+        <div class="arrow_downward">
+            <mat-icon class="arrow-white">arrow_upward</mat-icon>
+        </div>
+    </div>
+
+    <div *ngIf="!showBlock" class="body-menu-white">
+        <div class="body-menu-header-white">
+            <div class="left-menu-white"></div>
+            <div class="arrow-white">
+                <mat-icon>arrow_downward</mat-icon>
+                <ng-container *ngTemplateOutlet="arrow_downward"></ng-container>
+            </div>
+            <div class="right-menu-white"></div>
+        </div>
+        <ng-container *ngTemplateOutlet="bodyTemplate"></ng-container>
+        <div class="arrow_downward">
+            <mat-icon class="arrow-white">arrow_upward</mat-icon>
+            <ng-container *ngTemplateOutlet="arrow_upward"></ng-container>
+        </div>
+    </div>
+</div>
+
+<ng-template #headerTemplate>
+    <ng-content select="#header"></ng-content>
+</ng-template>
+
+<ng-template #bodyTemplate>
+    <ng-content select="#body"></ng-content>
+</ng-template>
+
+<ng-template #blackBlock>
+    <ng-content select="#blackBlock"></ng-content>
+</ng-template>
+
+<ng-template #arrow_downward>
+    <ng-content select="#arrow_downward"></ng-content>
+</ng-template>
+
+<ng-template #arrow_upward>
+    <ng-content select="#arrow_upward"></ng-content>
+</ng-template>
